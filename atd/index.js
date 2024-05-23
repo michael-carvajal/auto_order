@@ -1,3 +1,5 @@
+const getStoreId = require("./storeNumberAndIDS");
+
 // Function to login
 async function login(username, password, page) {
   // Fill in the username
@@ -19,6 +21,10 @@ async function searchForItem(tireItemNumber) {
 async function orderFromATD(page, url, storeNumber, username, password) {
   await page.goto(url);
   await login(username, password, page);
+  const storeId = await getStoreId(storeNumber);
+  //   console.log(storeId);
+  await page.fill("#select-location", storeId);
+  await page.click("#btn-continue");
 
   //   await searchForItem(tireItemNumber);
 

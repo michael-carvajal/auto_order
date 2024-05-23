@@ -11,9 +11,9 @@ const orderFromATD = require("./atd");
   const username = process.env.ATD_USERNAME;
   const password = process.env.ATD_PASSWORD;
   const storeNumber = "1"; // Replace with the actual store number
-  const tireItemNumber = "81501"; // Replace with the actual tire item number
+  const itemNumber = "81501"; // Replace with the actual tire item number
 
-  await orderFromATD(page, (url = websiteUrl), storeNumber, username, password);
+  await orderFromATD(page, (url = websiteUrl), storeNumber, username, password, itemNumber);
 
   //   await browser.close();
 })();
