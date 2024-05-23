@@ -1,5 +1,5 @@
 const { chromium } = require("playwright");
-require("dotenv").config(); 
+require("dotenv").config();
 const prompt = require("prompt-sync")();
 const orderFromATD = require("./atd");
 
@@ -20,12 +20,31 @@ const orderFromATD = require("./atd");
       websiteUrl = process.env.ATD_URL;
       username = process.env.ATD_USERNAME;
       password = process.env.ATD_PASSWORD;
-      await orderFromATD(page, websiteUrl, storeNumber, itemNumber, quantity, username, password);
+      await orderFromATD(
+        page,
+        websiteUrl,
+        storeNumber,
+        itemNumber,
+        quantity,
+        username,
+        password
+      );
       break;
-    
-    case "OTHER":
-      // Add logic for other vendors here
-      console.log("Other vendor functionality not implemented yet.");
+
+    case "MFI":
+      websiteUrl = process.env.MFI_URL;
+      username = process.env.MFI_USERNAME;
+      password = process.env.MFI_PASSWORD;
+      await orderFromATD(
+        page,
+        websiteUrl,
+        storeNumber,
+        itemNumber,
+        quantity,
+        username,
+        password
+      );
+
       break;
 
     default:
@@ -33,5 +52,5 @@ const orderFromATD = require("./atd");
       break;
   }
 
-//   await browser.close();
+  //   await browser.close();
 })();
