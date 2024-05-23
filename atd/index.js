@@ -19,6 +19,18 @@ async function searchForItem(tireItemNumber) {
 async function orderFromATD(page, url, storeNumber, username, password) {
   await page.goto(url);
   await login(username, password, page);
+
+  //   await searchForItem(tireItemNumber);
+
+  // Additional code to handle the search results
+  // Example: Extract information from the search results page
+  //   const itemDetails = await page.evaluate(() => {
+  //     // Replace with the actual selector and logic to extract item details
+  //     const item = document.querySelector('#itemDetailsSelector');
+  //     return item ? item.innerText : null;
+  //   });
+
+  //   console.log('Item Details:', itemDetails);
 }
 
 module.exports = orderFromATD;
