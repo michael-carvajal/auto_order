@@ -6,8 +6,8 @@ async function login(username, password, page) {
   // Fill in the password
   await page.fill("#j_password", password);
 
-  // Submit the form (assuming there is a login button with id 'loginButton')
-  // await page.click('#loginButton');
+  //   Submit the form (assuming there is a login button with id 'loginButton')
+  await page.click("#btn-login");
 }
 
 // Function to search for the tire item
