@@ -16,6 +16,11 @@ async function login(username, password, page) {
 async function searchForItem(page, itemNumber, quantity) {
   await page.fill("#global-search-input", itemNumber);
   await page.click("#global-search-button");
+  await page.getByRole("textbox", { name: "Qty" }).fill(quantity);
+//   console.log("we found qty");
+  const addToCart = await page.getByText(" Add to cart ").all();
+  await addToCart[1].click()
+//   console.log("add to cart");
 }
 
 async function orderFromATD(
