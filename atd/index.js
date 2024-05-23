@@ -13,12 +13,20 @@ async function login(username, password, page) {
 }
 
 // Function to search for the tire item
-async function searchForItem(tireItemNumber) {
-  await page.fill("#searchBarSelector", tireItemNumber); // Replace with the actual selector for the search bar
-  await page.press("#searchBarSelector", "Enter"); // Simulate pressing the Enter key
+async function searchForItem(page, itemNumber, quantity) {
+  await page.fill("#global-search-input", itemNumber);
+  await page.click("#global-search-button");
 }
 
-async function orderFromATD(page, url, storeNumber, username, password) {
+async function orderFromATD(
+  page,
+  url,
+  storeNumber,
+  itemNumber,
+  quantity,
+  username,
+  password
+) {
   await page.goto(url);
   await login(username, password, page);
   const storeId = await getStoreId(storeNumber);
@@ -26,7 +34,7 @@ async function orderFromATD(page, url, storeNumber, username, password) {
   await page.fill("#select-location", storeId);
   await page.click("#btn-continue");
 
-  //   await searchForItem(tireItemNumber);
+  await searchForItem(page, itemNumber, quantity);
 
   // Additional code to handle the search results
   // Example: Extract information from the search results page
