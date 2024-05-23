@@ -1,22 +1,10 @@
 const { chromium } = require("playwright");
+require("dotenv").config(); // Load environment variables from .env file
+const orderFromATD = require("./atd");
 
 (async () => {
   const browser = await chromium.launch({ headless: false }); // Set to true if you don't need to see the browser
   const page = await browser.newPage();
-
-  // Function to navigate to the store page
-  async function navigateToStore(url, storeNumber) {
-    await page.goto(url);
-
-    // Fill in the username
-    await page.fill("#j_username", "username");
-
-    // Fill in the password
-    await page.fill("#j_password", "password");
-
-    // await page.fill('#storeNumberInputSelector', storeNumber); // Replace with the actual selector for the store number input
-    // await page.click('#submitStoreNumberButtonSelector'); // Replace with the actual selector for the submit button
-  }
 
   // Function to search for the tire item
   async function searchForItem(tireItemNumber) {
@@ -25,12 +13,14 @@ const { chromium } = require("playwright");
   }
 
   // Input values
-  const websiteUrl = "https://www.atdonline.com/"; // Replace with the actual website URL
+  const websiteUrl = process.env.ATD_URL;
+  const username = process.env.ATD_USERNAME;
+  const password = process.env.ATD_PASSWORD;
   const storeNumber = "1"; // Replace with the actual store number
   const tireItemNumber = "81501"; // Replace with the actual tire item number
 
-  // Navigate to the store page and search for the item
-  await navigateToStore(websiteUrl, storeNumber);
+  await orderFromATD(page, (url = websiteUrl), storeNumber, username, password);
+
   //   await searchForItem(tireItemNumber);
 
   // Additional code to handle the search results
