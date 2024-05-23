@@ -1,0 +1,14 @@
+{
+  "name": "auto_order",
+  "version": "1.0.0",
+  "description": "tool for employees to streamline the ordering process",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.44.1"
+  }
+}
