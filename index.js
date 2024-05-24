@@ -11,8 +11,8 @@ const orderFromUSA = require("./usa");
   // Capture user input
   const vendor = prompt("Enter vendor (ATD or other): ").toUpperCase().trim();
   const storeNumber = prompt("Enter store number: ").trim();
-  const poNumber = prompt("Enter PO number: ").trim();
   const itemNumber = prompt("Enter item number: ").trim();
+  const poNumber = prompt("Enter PO number: ").trim();
   const quantity = prompt("Enter quantity: ").trim();
 
   // Vendor-specific configurations

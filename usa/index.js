@@ -27,7 +27,8 @@ async function orderFromUSA(
   itemNumber,
   quantity,
   username,
-  password
+  password, 
+  poNumber
 ) {
   await page.goto(url);
   await login(username, password, page);
@@ -41,7 +42,7 @@ async function orderFromUSA(
   await page.click(`div.divSelectDealerResult >> text=${storeNumber}`);
 
   await searchForItem(page, itemNumber, quantity);
-
+  await page.fill("#inputPurchaseOrder", poNumber)
 
 }
 
