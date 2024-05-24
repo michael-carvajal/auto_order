@@ -32,13 +32,18 @@ async function orderFromATD(
 ) {
   await page.goto(url);
   await login(username, password, page);
-  const storeId = await getStoreId(storeNumber);
-  //   console.log(storeId);
-  await page.fill("#select-location", storeId);
-  await page.click("#btn-continue");
-
-  await searchForItem(page, itemNumber, quantity);
-  await page.fill("#customerPO", poNumber)
+  let storeId;
+  try {
+    storeId = await getStoreId(storeNumber);
+    //   console.log(storeId);
+    await page.fill("#select-location", storeId);
+    await page.click("#btn-continue");
+  
+    await searchForItem(page, itemNumber, quantity);
+    await page.fill("#customerPO", poNumber)
+  } catch (error) {
+    console.log(error);
+  }
 
 }
 
