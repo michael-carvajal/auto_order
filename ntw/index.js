@@ -21,7 +21,13 @@ async function orderFromNTW(
   ) {
     await page.goto(url);
     await login(username, password, page);
-//     await page.fill("#SelectDealerAutoComplete", storeNumber + " ");
+    await page.waitForTimeout(5000);
+    const homes = await page.getByText("Home Account").all();
+    // console.log(homes);
+    await homes[2].click()
+    await page.keyboard.type(storeNumber)
+    // await page.click("#panelCorporateAccounts select")
+    // await page.fill("#panelCorporateAccounts .chosen-search > input", storeNumber );
 //     // Wait for the div containing the store number to be visible
 //     await page.waitForSelector(
 //       `div.divSelectDealerResult >> text=${storeNumber}`
