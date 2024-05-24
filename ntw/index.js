@@ -1,3 +1,17 @@
+function getStoreNumber(storeNumber) {
+    // Add leading zeroes based on the length of the storeNumber
+    if (storeNumber.length === 1) {
+      storeNumber = "000" + storeNumber;
+    } else if (storeNumber.length === 2) {
+      storeNumber = "00" + storeNumber;
+    }
+    else if (storeNumber.length === 3) {
+      storeNumber = "0" + storeNumber;
+    }
+  
+    return storeNumber;
+  }
+
 async function login(username, password, page) {
     // Fill in the username
     await page.fill("#fldAccount", username);
@@ -22,10 +36,18 @@ async function orderFromNTW(
     await page.goto(url);
     await login(username, password, page);
     await page.waitForTimeout(5000);
-    const homes = await page.getByText("Home Account").all();
-    // console.log(homes);
-    await homes[2].click()
-    await page.keyboard.type(storeNumber)
+      // Retrieve all elements that match the text "Home Account"
+  const clicker = await page.getByText('Home Account').all();
+
+  // Wait for the last element to be visible
+  const lastHomeAccount = clicker[clicker.length - 1];
+  await lastHomeAccount.waitFor({ state: 'visible' });
+
+  // Click on the last element
+  await lastHomeAccount.click();
+
+await page.keyboard.type(getStoreNumber(storeNumber))
+    await page.keyboard.press("Enter")
     // await page.click("#panelCorporateAccounts select")
     // await page.fill("#panelCorporateAccounts .chosen-search > input", storeNumber );
 //     // Wait for the div containing the store number to be visible
