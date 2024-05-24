@@ -4,6 +4,8 @@ const prompt = require("prompt-sync")();
 const orderFromATD = require("./atd");
 const orderFromMFI = require("./mfi");
 const orderFromUSA = require("./usa");
+const orderFromNTW = require("./ntw");
+
 (async () => {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
@@ -55,6 +57,22 @@ const orderFromUSA = require("./usa");
       username = process.env.USA_USERNAME;
       password = process.env.USA_PASSWORD;
       await orderFromUSA(
+        page,
+        websiteUrl,
+        storeNumber,
+        itemNumber,
+        quantity,
+        username,
+        password,
+        poNumber
+      );
+
+      break;
+    case "NTW":
+      websiteUrl = process.env.NTW_URL;
+      username = process.env.NTW_USERNAME;
+      password = process.env.NTW_PASSWORD;
+      await orderFromNTW(
         page,
         websiteUrl,
         storeNumber,
