@@ -27,7 +27,8 @@ async function orderFromATD(
   itemNumber,
   quantity,
   username,
-  password
+  password,
+  poNumber
 ) {
   await page.goto(url);
   await login(username, password, page);
@@ -37,7 +38,7 @@ async function orderFromATD(
   await page.click("#btn-continue");
 
   await searchForItem(page, itemNumber, quantity);
-
+  await page.fill("#customerPO", poNumber)
 
 }
 
