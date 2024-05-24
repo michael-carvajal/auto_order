@@ -3,16 +3,16 @@ require("dotenv").config();
 const prompt = require("prompt-sync")();
 const orderFromATD = require("./atd");
 const orderFromMFI = require("./mfi");
-
+const orderFromUSA = require("./usa");
 (async () => {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
 
   // Capture user input
-  const vendor = prompt("Enter vendor (ATD or other): ").toUpperCase();
-  const storeNumber = prompt("Enter store number: ");
-  const itemNumber = prompt("Enter item number: ");
-  const quantity = prompt("Enter quantity: ");
+  const vendor = prompt("Enter vendor (ATD or other): ").toUpperCase().trim();
+  const storeNumber = prompt("Enter store number: ").trim();
+  const itemNumber = prompt("Enter item number: ").trim();
+  const quantity = prompt("Enter quantity: ").trim();
 
   // Vendor-specific configurations
   let websiteUrl, username, password;
@@ -37,6 +37,21 @@ const orderFromMFI = require("./mfi");
       username = process.env.MFI_USERNAME;
       password = process.env.MFI_PASSWORD;
       await orderFromMFI(
+        page,
+        websiteUrl,
+        storeNumber,
+        itemNumber,
+        quantity,
+        username,
+        password
+      );
+
+      break;
+    case "USA":
+      websiteUrl = process.env.USA_URL;
+      username = process.env.USA_USERNAME;
+      password = process.env.USA_PASSWORD;
+      await orderFromUSA(
         page,
         websiteUrl,
         storeNumber,
