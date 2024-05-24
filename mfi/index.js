@@ -7,7 +7,6 @@ async function login(username, password, page) {
   // // Fill in the password
   await page.getByRole("textbox", { name: "Password" }).fill(password);
 
-  // //   Submit the form (assuming there is a login button with id 'loginButton')
   await page.getByRole("button", { name: /sign in/i }).click();
   await page.waitForTimeout(1000);
   await page.keyboard.press("Escape");
@@ -32,15 +31,6 @@ async function orderFromMFI(
 
   // await searchForItem(page, itemNumber, quantity);
 
-  // Additional code to handle the search results
-  // Example: Extract information from the search results page
-  //   const itemDetails = await page.evaluate(() => {
-  //     // Replace with the actual selector and logic to extract item details
-  //     const item = document.querySelector('#itemDetailsSelector');
-  //     return item ? item.innerText : null;
-  //   });
-
-  //   console.log('Item Details:', itemDetails);
 }
 
 module.exports = orderFromMFI;
