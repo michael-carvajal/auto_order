@@ -2,6 +2,7 @@ const { chromium } = require("playwright");
 require("dotenv").config();
 const prompt = require("prompt-sync")();
 const orderFromATD = require("./atd");
+const orderFromMFI = require("./mfi");
 
 (async () => {
   const browser = await chromium.launch({ headless: false });
@@ -35,7 +36,7 @@ const orderFromATD = require("./atd");
       websiteUrl = process.env.MFI_URL;
       username = process.env.MFI_USERNAME;
       password = process.env.MFI_PASSWORD;
-      await orderFromATD(
+      await orderFromMFI(
         page,
         websiteUrl,
         storeNumber,
