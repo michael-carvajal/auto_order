@@ -54,17 +54,37 @@ async function orderFromNTW(
     await partField.click();
     await page.fill("#fldSearchPart", itemNumber);
     await page.keyboard.press("Enter");
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(5000);
     // await page.keyboard.press("Tab");
     // await page.waitForTimeout(3000);
     // await page.keyboard.press("Enter");
     await page.getByRole("textbox", { name: "Qty" }).fill(quantity);
     await page.getByRole("button", { name: "Add to Cart" }).click();
     await page.getByRole("link", { name: "Checkout" }).click();
+    await page.fill("#fldCheckoutPO", poNumber);
+    const unitPrice = await page.locator(".cost.price.text-right").innerText();
+    await page.waitForTimeout(5000);
+    await page.waitForSelector("#dlgOrderLinesTable");
+
+    // Get the confirmation number from the first tr -> td element
+    const confirmationNumber = await page
+      .locator("#dlgOrderLinesTable > tr:first-child > td:first-child")
+      .innerText();
+
+    console.log("Confirmation Number:", confirmationNumber);
+    // Get the price from the fourth td in the third tr
+    const netPrice = await page
+      .locator("#dlgOrderLinesTable > tr:nth-child(3) > td:nth-child(4)")
+      .innerText();
+    if (netPrice === "$0") {
+      console.log("Net Price:", netPrice);
+    } else {
+      console.log("Unit Price: $ ", unitPrice.slice(1));
+
+    }
   } catch (error) {
     console.log(error);
   }
-
 }
 
 module.exports = orderFromNTW;
