@@ -47,10 +47,13 @@ async function orderFromUSA(
   try {
     // Wait for the confirmation page to load
     await page.waitForSelector("div p.text-green.pl-2"); // Replace with the actual selector for the confirmation number
+    await page.waitForSelector("div.flex p span.block"); // Replace with the actual selector for the confirmation number
+    
 
     // Extract the confirmation number
     const confirmationNumber = await page.textContent("div p.text-green.pl-2"); // Replace with the actual selector for the confirmation number
-    console.log(confirmationNumber);
+    const price = await page.textContent("div.flex p span.block"); // Replace with the actual selector for the confirmation number
+    console.log(confirmationNumber, " -- $", price.slice(1)) ;
   } catch (error) {
     console.log(error);
   }
