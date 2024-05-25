@@ -27,7 +27,7 @@ async function orderFromUSA(
   itemNumber,
   quantity,
   username,
-  password, 
+  password,
   poNumber
 ) {
   await page.goto(url);
@@ -42,8 +42,18 @@ async function orderFromUSA(
   await page.click(`div.divSelectDealerResult >> text=${storeNumber}`);
 
   await searchForItem(page, itemNumber, quantity);
-  await page.fill("#inputPurchaseOrder", poNumber)
+  await page.fill("#inputPurchaseOrder", poNumber);
 
+  try {
+    // Wait for the confirmation page to load
+    await page.waitForSelector("div p.text-green.pl-2"); // Replace with the actual selector for the confirmation number
+
+    // Extract the confirmation number
+    const confirmationNumber = await page.textContent("div p.text-green.pl-2"); // Replace with the actual selector for the confirmation number
+    console.log(confirmationNumber);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = orderFromUSA;
